@@ -1,36 +1,31 @@
 // frontend/src/components/common/HeaderBanner.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaHome, FaNewspaper, FaCalendarAlt, FaSignInAlt } from 'react-icons/fa'; // Icons cho các link
+import '../../styles/global.scss'; // Đảm bảo import global.scss
 
-// Import hình ảnh logo và background (em cần tự thêm ảnh vào thư mục assets/images)
-// Ví dụ: import logoImage from '../../assets/images/your-logo.png';
-// Ví dụ: import bannerBackground from '../../assets/images/your-banner-bg.jpg';
-// Hiện tại dùng placeholder để không bị lỗi nếu chưa có ảnh
-const logoImage = ''; // Thay bằng đường dẫn đến logo của em, ví dụ: '/src/assets/images/logo-tntt.png'
-const bannerBackground = ''; // Thay bằng đường dẫn đến background của em, ví dụ: '/src/assets/images/banner-bg.jpg'
+// Đường dẫn tới ảnh banner: bgTL.jpg
+// Dòng này có thể bị gạch chân trong VS Code nếu không được sử dụng trực tiếp trong JSX
+// Tuy nhiên, nó không gây lỗi runtime và hữu ích cho việc tham khảo đường dẫn ảnh.
+const bannerImage = '/images/bgTL.jpg'; 
 
 const HeaderBanner = () => {
   return (
-    <header className="main-header">
-      <div className="banner-content">
-        {logoImage && <img src={logoImage} alt="Logo TNTT" className="banner-logo" />}
-        <h1 className="banner-title">Đoàn Thiếu Nhi Thánh Thể</h1>
-        <p className="banner-subtitle">Giáo Xứ Thánh Linh Q9</p>
-        {/* Có thể thêm khẩu hiệu hoặc thông điệp ở đây */}
-      </div>
-
-      {/* Phần điều hướng đặt dưới banner, hoặc có thể là overlay tùy thiết kế */}
+    <header
+      className="main-header"
+      // Anh/chị đã comment dòng style này vì background-image đã được xử lý trong global.scss.
+      // Nếu em muốn đặt ảnh trực tiếp trong JSX, có thể bỏ comment dòng này và xóa background-image trong global.scss
+      // style={{ backgroundImage: `url(${bannerImage})` }} 
+    >
+      {/* KHÔNG CÒN NỘI DUNG CHỮ HOẶC LOGO TRONG HEADERBANNER NỮA, CHỈ CÓ ẢNH NỀN THEO YÊU CẦU CỦA EM */}
+      
+      {/* Navigation vẫn giữ nguyên vị trí dưới cùng của header */}
       <nav className="main-nav-links">
         <ul>
-          <li><Link to="/"><FaHome /> Trang Chủ</Link></li>
-          <li><Link to="/news"><FaNewspaper /> Bản Tin</Link></li>
-          <li><Link to="/events"><FaCalendarAlt /> Sự Kiện</Link></li>
-          <li><Link to="/login"><FaSignInAlt /> Đăng Nhập</Link></li>
+          <li><Link to="/">Trang Chủ</Link></li>
+          {/* Mục "Thông tin Xứ Đoàn" đã được loại bỏ hoàn toàn khỏi đây theo yêu cầu của em */}
+          <li><Link to="/login">Đăng Nhập</Link></li>
         </ul>
       </nav>
-
-      {/* Nếu có background image, nó sẽ được đặt bằng CSS */}
     </header>
   );
 };

@@ -1,0 +1,90 @@
+// frontend/src/styles/aboutus.scss
+@use "sass:color"; 
+@use 'global.scss'; // Thêm dòng này để import các biến màu
+ 
+.about-us-content {
+  padding: 3rem 0;
+  background-color: $color-light-bg; // Sử dụng biến từ global.scss
+  color: $color-text-dark; // Sử dụng biến từ global.scss
+
+  .container {
+    // ... (các styles khác)
+  }
+
+  h1 {
+    color: $color-primary; // Sử dụng biến từ global.scss
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+  }
+
+  .last-updated-meta {
+    text-align: center;
+    font-style: italic;
+    color: color.adjust($color-text-dark, $lightness: 30%); // Thay đổi $color-dark thành $color-text-dark
+    margin-bottom: 2rem;
+  }
+
+  .section-block {
+    background-color: $color-white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    margin-bottom: 2rem;
+
+    h2 {
+      color: $color-secondary; // Sử dụng biến từ global.scss
+      margin-bottom: 1.2rem;
+      font-size: 1.8rem;
+      border-bottom: 1px solid $color-gray-border;
+      padding-bottom: 0.5rem;
+    }
+
+    h3 {
+      color: $color-primary; // Sử dụng biến từ global.scss
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+      font-size: 1.4rem;
+    }
+
+    p, ul {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+      font-size: 1.05rem;
+      color: $color-text-dark;
+    }
+
+    ul {
+      list-style-type: disc;
+      margin-left: 1.5rem;
+
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+// Media Queries cho AboutUsPage trên màn hình nhỏ
+@media (max-width: 768px) {
+  .about-us-content {
+    padding: 2rem 0;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .section-block {
+      padding: 1.5rem;
+      h2 {
+        font-size: 1.5rem;
+      }
+      h3 {
+        font-size: 1.2rem;
+      }
+      p, ul {
+        font-size: 0.95rem;
+      }
+    }
+  }
+}

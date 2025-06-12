@@ -1,47 +1,67 @@
 // frontend/src/styles/global.scss
 
-// ====================================
-// Định nghĩa biến màu dựa trên logo (Dán chính xác phần này ở đầu file)
-// ====================================
-$color-primary: #EA2C3F;       // Màu đỏ chủ đạo từ logo
-$color-secondary: #007BFF;     // Màu xanh dương
-$color-accent-yellow: #FFD700; // Màu vàng
-$color-accent-green: #28A745;  // Màu xanh lá
-$color-white: #FFFFFF;
-$color-dark: #333;
-$color-light-bg: #f4f4f4;      // Màu nền nhẹ
-$color-gray-border: #e0e0e0;   // Màu viền xám
+// Import module 'color' từ Sass để sử dụng các hàm như 'color.change'
+@use "sass:color";
 
 // ====================================
-// Cài đặt cơ bản cho mọi trình duyệt
+// Định nghĩa biến màu dựa trên logo Xứ Đoàn Thánh Linh Q9 và tông màu mong muốn
+// Đảm bảo các biến này được định nghĩa ở ĐẦU FILE trước khi được sử dụng!
+// ====================================
+$color-primary: #BF202F;       // Màu đỏ đậm từ nhà thờ trong logo - Sẽ dùng cho thanh navigation
+$color-secondary: #007bff;     // Màu xanh dương sáng hơn (từ phần "nước" hoặc chim bồ câu) - Dùng cho tiêu đề phụ
+$color-tertiary: #FFD700;      // Màu vàng từ nền logo, dùng cho tiêu đề chính (nếu có chữ trong banner)
+$color-text-dark: #333333;     // Màu chữ tối (xám đậm)
+$color-light-bg: #F8F8F8;      // Màu nền rất nhẹ, gần trắng, cho body và main content
+$color-white: #FFFFFF;        // Màu trắng
+$color-gray-border: #E5E5E5;   // Màu viền xám nhẹ
+$color-header-footer-bg: #0056b3; // Màu xanh dương đậm cho header/footer (dự phòng)
+
+
+// ====================================
+// Cài đặt cơ bản cho mọi trình duyệt (Reset CSS)
 // ====================================
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  box-sizing: border-box; // Mọi element tính toán padding và border trong width/height
+  margin: 0;             // Loại bỏ margin mặc định
+  padding: 0;            // Loại bỏ padding mặc định
 }
 
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background-color: $color-light-bg;
-  color: $color-dark;
+  font-family: 'Arial', sans-serif; // Font chữ mặc định
+  line-height: 1.6;                 // Khoảng cách dòng
+  background-color: $color-light-bg; // Màu nền body
+  color: $color-text-dark;          // Màu chữ mặc định
+}
+
+// Global container để giới hạn chiều rộng nội dung
+.container {
+  max-width: 1200px; // Chiều rộng tối đa
+  margin: 0 auto;    // Căn giữa
+  padding: 0 1.5rem; // Padding ngang để nội dung không dính vào cạnh màn hình
 }
 
 /* ==================================== */
 /* Header Banner Styles */
 /* ==================================== */
 .main-header {
-  background-color: $color-primary; // Sử dụng biến màu đã định nghĩa
-  // background-image: url('../../assets/images/your-banner-bg.jpg'); // Bỏ comment và thay đường dẫn nếu có ảnh nền
-  background-size: cover;
-  background-position: center;
+  background-color: $color-header-footer-bg; // Màu nền dự phòng nếu ảnh không load
+  background-image: url('/images/bgTL.jpg'); // Đường dẫn ảnh background - Đảm bảo ảnh này có trong thư mục `public/images`
+  background-size: cover;       // Đảm bảo ảnh cover toàn bộ không gian, không bị khoảng trắng
+  background-repeat: no-repeat; // Không lặp lại ảnh
+  background-position: center;  // Căn giữa ảnh
   color: $color-white;
   text-align: center;
-  padding: 3rem 0;
+  padding: 0;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; // Đảm bảo phần ảnh thừa bị ẩn đi nếu có
+  
+  // Chiều cao linh hoạt hơn, được tinh chỉnh để ảnh vừa và không bị quá to
+  min-height: 180px;            // Chiều cao tối thiểu cho banner
+  height: 20vw;                 // **THAY ĐỔI**: Giảm vw xuống 20vw để ảnh bớt bị cắt theo chiều dọc
+  max-height: 280px;            // **THAY ĐỔI**: Giảm max-height để ảnh không quá lớn trên màn hình lớn
 
+
+  // Lớp phủ tối (overlay) - Đặt độ trong suốt rất nhỏ để ảnh rõ nhất
   &::before {
     content: '';
     position: absolute;
@@ -49,93 +69,69 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 1;
+    background: rgba(0, 0, 0, 0.05); // Độ trong suốt = 0.05, thêm lớp phủ nhẹ
+    z-index: 1; // Đảm bảo lớp phủ nằm dưới nav
   }
 
-  .banner-content {
-    position: relative;
-    z-index: 2;
-    padding: 1rem;
-  }
-
-  .banner-logo {
-    max-width: 150px;
-    height: auto;
-    margin-bottom: 1rem;
-    border-radius: 50%;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  }
-
-  .banner-title {
-    font-size: 2.8rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-
-  .banner-subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-  }
-
+  // Styles cho Navigation Links - Sẽ được đặt ngay dưới banner
   .main-nav-links {
-    position: relative;
-    z-index: 2;
-    margin-top: 2rem;
-    padding: 0 1rem;
+    position: absolute; // Đặt tuyệt đối để nó nằm ngay dưới banner và kéo dài full width
+    bottom: 0;          // Đặt ở dưới cùng của header
+    left: 0;
+    width: 100%;
+    z-index: 3;         // Cao hơn lớp phủ và nội dung banner
+    background-color: $color-primary; // Nền đỏ như mẫu
+    padding: 0.8rem 1rem; // Padding dọc và ngang
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); // Bóng nhẹ dưới nav
+    border-top: 1px solid rgba($color-white, 0.3); // Viền trắng nhẹ trên đầu
   }
 
   .main-nav-links ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    background-color: rgba($color-primary, 0.8); // Sử dụng biến màu
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    list-style: none; // Bỏ dấu chấm của list
+    display: flex;    // Sắp xếp các mục menu theo hàng ngang
+    justify-content: center; // Căn giữa các mục menu
+    flex-wrap: wrap;  // Cho phép các mục menu xuống dòng nếu màn hình nhỏ
+    gap: 2rem;        // Khoảng cách giữa các mục menu
 
     li a {
-      color: $color-white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1rem;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      color: $color-white;        // Màu chữ trắng
+      text-decoration: none;      // Bỏ gạch chân
+      font-weight: 600;           // Độ đậm chữ
+      font-size: 1.15rem;         // Kích thước chữ
+      padding: 0.6rem 1.2rem;     // Padding bên trong mỗi mục menu
+      border-radius: 6px;         // Bo tròn góc
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; // Hiệu ứng chuyển động
 
       &:hover {
-        background-color: lighten($color-primary, 10%);
-        transform: translateY(-2px);
+        background-color: rgba($color-white, 0.2); // Màu trắng trong suốt khi hover
+        transform: translateY(-3px);                // Di chuyển lên nhẹ
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);   // Thêm bóng
       }
       svg {
-        margin-right: 0.5rem;
+        margin-right: 0.5rem; // Khoảng cách cho icon (nếu có)
       }
     }
   }
 }
 
+/* ==================================== */
 /* Media Queries cho HeaderBanner trên màn hình nhỏ */
+/* ==================================== */
 @media (max-width: 768px) {
   .main-header {
-    padding: 2rem 0;
+    min-height: 100px; // Chiều cao tối thiểu cho mobile
+    height: 30vw;     // Điều chỉnh vw cho mobile
+    max-height: 200px; // Giảm max-height cho mobile
+  }
 
-    .banner-title {
-      font-size: 2rem;
-    }
+  .main-nav-links {
+    padding: 0.5rem 1rem; // Giảm padding cho mobile
+  }
 
-    .banner-subtitle {
-      font-size: 1.2rem;
-    }
-
-    .main-nav-links ul {
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
+  .main-nav-links ul {
+    flex-direction: column; // Các mục menu xếp chồng lên nhau
+    align-items: center;    // Căn giữa các mục menu
+    gap: 1.2rem;            // Giảm khoảng cách giữa các mục
   }
 }
 
@@ -143,75 +139,105 @@ body {
 /* Styles for Homepage Sections (News & Events) */
 /* ==================================== */
 
+.main-content {
+  padding: 2.5rem 0;        // Padding trên dưới cho nội dung chính
+  background-color: $color-light-bg; // Màu nền
+  min-height: 60vh;         // Chiều cao tối thiểu
+}
+
 .homepage-section {
-  background-color: $color-white; // Sử dụng biến màu
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-top: 2rem;
+  background-color: $color-white; // Nền trắng cho mỗi section
+  padding: 2rem;                  // Padding bên trong section
+  border-radius: 10px;            // Bo tròn góc
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); // Bóng đổ nhẹ
+  margin-top: 2.5rem;             // Khoảng cách giữa các section (và từ banner xuống)
 
   h2 {
-    color: $color-secondary; // Sử dụng biến màu
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid $color-gray-border; // Sử dụng biến màu
-    padding-bottom: 0.5rem;
+    color: $color-primary;           // Tiêu đề section dùng màu đỏ
+    margin-bottom: 1.8rem;           // Khoảng cách dưới tiêu đề
+    border-bottom: 2px solid $color-gray-border; // Đường viền dưới tiêu đề
+    padding-bottom: 0.8rem;          // Padding dưới đường viền
+    font-size: 2rem;                 // Kích thước chữ tiêu đề
   }
 }
 
 .news-list, .event-list {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: grid; // Dùng Grid để sắp xếp các item
+  gap: 1.8rem;   // Khoảng cách giữa các item
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); // Tự động tạo cột, mỗi cột tối thiểu 300px
 }
 
 .news-item, .event-item {
-  background-color: $color-white; // Sử dụng biến màu
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border: 1px solid $color-gray-border; // Sử dụng biến màu
-  transition: transform 0.2s ease-in-out;
+  background-color: $color-white; // Nền trắng cho mỗi item
+  padding: 1.5rem;                // Padding bên trong item
+  border-radius: 10px;            // Bo tròn góc
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); // Bóng đổ rất nhẹ
+  border: 1px solid $color-gray-border;     // Viền nhẹ
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; // Hiệu ứng chuyển động
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);               // Di chuyển lên khi hover
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); // Bóng đậm hơn khi hover
   }
 
   h3 {
-    margin-top: 0;
-    font-size: 1.2rem;
-    color: $color-secondary; // Sử dụng biến màu
+    margin-top: 0;                  // Bỏ margin top mặc định
+    font-size: 1.4rem;              // Kích thước chữ tiêu đề item
+    color: $color-secondary;        // Tiêu đề item dùng màu xanh dương
+    margin-bottom: 0.8rem;          // Khoảng cách dưới tiêu đề item
   }
 
   p {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: $color-dark; // Sử dụng biến màu
-    margin-bottom: 0.5rem;
+    font-size: 1rem;                // Kích thước chữ nội dung
+    line-height: 1.5;               // Khoảng cách dòng
+    color: $color-text-dark;        // Màu chữ nội dung
+    margin-bottom: 0.8rem;          // Khoảng cách dưới đoạn văn
   }
 
   .news-date, .event-date, .event-location {
-    font-size: 0.85rem;
-    color: darken($color-gray-border, 20%); // Sử dụng biến màu
-    margin-bottom: 0.5rem;
+    font-size: 0.9rem;                              // Kích thước chữ nhỏ
+    color: color.change($color-text-dark, $lightness: 30%); // Sửa lỗi `lighten`
+    margin-bottom: 0.8rem;                          // Khoảng cách dưới
   }
 
   .read-more, .view-details {
-    display: inline-block;
-    margin-top: 0.8rem;
-    color: $color-secondary; // Sử dụng biến màu
-    text-decoration: none;
-    font-weight: bold;
+    display: inline-block;          // Hiển thị dạng khối nội tuyến
+    margin-top: 1rem;               // Khoảng cách trên
+    color: $color-secondary;        // Màu chữ
+    text-decoration: none;          // Bỏ gạch chân
+    font-weight: bold;              // Chữ đậm
+    padding: 0.4rem 0.8rem;         // Padding
+    border: 1px solid $color-secondary; // Viền
+    border-radius: 5px;             // Bo tròn góc
+    transition: background-color 0.3s ease, color 0.3s ease; // Hiệu ứng chuyển động
 
     &:hover {
-      text-decoration: underline;
+      background-color: $color-secondary; // Đổi màu nền khi hover
+      color: $color-white;                // Đổi màu chữ khi hover
+      text-decoration: none;              // Bỏ gạch chân
     }
   }
 }
 
+/* ==================================== */
 /* Media Queries cho item trên màn hình nhỏ */
+/* ==================================== */
 @media (max-width: 768px) {
   .news-list, .event-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; // Một cột duy nhất trên mobile
+  }
+  .homepage-section {
+    padding: 1.5rem;    // Giảm padding
+    margin-top: 2rem;   // Giảm margin top
+    h2 {
+      font-size: 1.6rem; // Giảm kích thước tiêu đề
+    }
+  }
+  .news-item, .event-item {
+    padding: 1.2rem;    // Giảm padding item
+    h3 {
+      font-size: 1.2rem; // Giảm kích thước tiêu đề item
+    }
   }
 }
 
@@ -219,40 +245,44 @@ body {
 /* Footer Styles */
 /* ==================================== */
 footer {
-  background-color: $color-accent-green; // Ví dụ màu xanh lá cho footer
-  color: $color-white;
-  padding: 2rem;
-  margin-top: 3rem;
-  text-align: center;
+  background-color: $color-header-footer-bg; // Footer dùng màu xanh dương đậm
+  color: $color-white;                  // Màu chữ trắng
+  padding: 2.5rem;                      // Padding tổng thể
+  margin-top: 4rem;                     // Khoảng cách từ nội dung chính
+  text-align: center;                   // Căn giữa chữ
 
-  & > div:first-child { // Phần chia 3 cột
+  & > div:first-child { // Phần nội dung chính của footer (liên hệ, thời gian, sơ đồ)
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 1.5rem;
-    text-align: left; // Căn trái nội dung trong cột
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // Tự động tạo cột
+    gap: 2.5rem;            // Khoảng cách giữa các cột
+    margin-bottom: 2rem;    // Khoảng cách dưới
+    text-align: left;       // Căn trái nội dung trong mỗi cột
 
     h3 {
-      margin-top: 0;
-      color: $color-white;
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
+      margin-top: 0;        // Bỏ margin top mặc định
+      color: $color-white;  // Màu chữ trắng
+      margin-bottom: 1.2rem; // Khoảng cách dưới tiêu đề cột
+      font-size: 1.3rem;    // Kích thước chữ tiêu đề cột
     }
     p {
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
+      font-size: 0.95rem;   // Kích thước chữ nội dung cột
+      margin-bottom: 0.6rem; // Khoảng cách dưới đoạn văn
     }
   }
-  & > div:last-child { // Phần copyright
-    border-top: 1px solid rgba($color-white, 0.3);
-    padding-top: 1rem;
-    font-size: 0.85rem;
+  & > div:last-child { // Phần bản quyền
+    border-top: 1px solid rgba($color-white, 0.4); // Viền trên
+    padding-top: 1.5rem; // Padding trên
+    font-size: 0.9rem;   // Kích thước chữ
   }
 }
 
 @media (max-width: 768px) {
+  footer {
+    padding: 2rem 1rem; // Giảm padding cho mobile
+    margin-top: 3rem;   // Giảm margin top
+  }
   footer > div:first-child {
-    grid-template-columns: 1fr; // Xếp dọc các cột trên mobile
-    text-align: center; // Căn giữa nội dung trên mobile
+    grid-template-columns: 1fr; // Một cột duy nhất trên mobile
+    text-align: center;         // Căn giữa nội dung
   }
 }
