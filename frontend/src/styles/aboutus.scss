@@ -1,16 +1,16 @@
 // frontend/src/styles/aboutus.scss
 
 // Import các biến và mixins từ global.scss
-// Sử dụng @use và truy cập biến qua namespace 'global'
-@use 'global.scss'; // Đúng cách import khi cùng thư mục, hoặc dùng @use './global.scss';
+// SỬA: Sử dụng @use './global.scss' as *; để truy cập biến trực tiếp
+@use './global.scss' as *; // Đúng cách import khi cùng thư mục, và dùng 'as *' để bỏ tiền tố
 
 // Em thêm các styles riêng cho trang AboutUs ở đây
 // Ví dụ:
 .about-us-page {
   padding: 2rem;
   .content {
-    // SỬA ĐÂY: Truy cập biến $color-light-bg thông qua namespace 'global'
-    background-color: global.$color-white; // Ví dụ sử dụng biến từ global.scss
+    // SỬA ĐÂY: Truy cập biến $color-white trực tiếp vì đã dùng 'as *'
+    background-color: $color-white; // Sử dụng biến từ global.scss
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -19,12 +19,12 @@
 
 // BỔ SUNG: Nếu bạn có sử dụng $color-light-bg trực tiếp ở ngoài .content
 body {
-  // SỬA ĐÂY: Truy cập biến $color-light-bg thông qua namespace 'global'
-  background-color: global.$color-light-bg; // Ví dụ sử dụng biến từ global.scss
+  // SỬA ĐÂY: Truy cập biến $color-light-bg trực tiếp vì đã dùng 'as *'
+  background-color: $color-light-bg; // Sử dụng biến từ global.scss
 }
 
-// Nếu có các styles khác sử dụng biến từ global.scss, cũng phải sửa tương tự: global.$ten-bien
+// Nếu có các styles khác sử dụng biến từ global.scss, cũng phải sửa tương tự: $ten-bien
 // Ví dụ:
 h1 {
-  color: global.$color-primary;
+  color: $color-primary;
 }

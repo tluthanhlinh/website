@@ -1,0 +1,123 @@
+// frontend/src/styles/NewArticlePage.scss
+
+@use "sass:color";
+
+$color-primary: #BF202F;
+$color-text-dark: #333333;
+$color-light-bg: #F8F8F8;
+$color-white: #FFFFFF;
+$color-gray-border: #E5E5E5;
+$color-success: #28a745;
+$color-error: #dc3545;
+
+.new-article-page {
+  padding: 3rem 0;
+  background-color: $color-light-bg;
+
+  .container {
+    background-color: $color-white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: $color-primary;
+  }
+
+  .article-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .form-group {
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: $color-text-dark;
+      }
+
+      input[type="text"],
+      textarea {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 1px solid $color-gray-border;
+        border-radius: 5px;
+        font-size: 1rem;
+        box-sizing: border-box; 
+        transition: border-color 0.3s ease;
+
+        &:focus {
+          border-color: $color-primary;
+          outline: none;
+          box-shadow: 0 0 0 0.2rem rgba($color-primary, 0.25);
+        }
+      }
+
+      textarea {
+        resize: vertical; 
+        min-height: 150px; 
+      }
+    }
+
+    .status-message {
+      padding: 0.8rem 1.2rem;
+      border-radius: 5px;
+      margin-top: 1rem;
+      text-align: center;
+      font-weight: bold;
+
+      &.success {
+        background-color: color.lighten($color-success, 40%);
+        color: $color-success;
+        border: 1px solid $color-success;
+      }
+
+      &.error {
+        background-color: color.lighten($color-error, 40%);
+        color: $color-error;
+        border: 1px solid $color-error;
+      }
+    }
+
+    .submit-button {
+      background-color: $color-primary;
+      color: $color-white;
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      align-self: flex-end; 
+
+      &:hover {
+        background-color: color.adjust($color-primary, $lightness: -10%);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .new-article-page {
+    padding: 1.5rem 0;
+    .container {
+      padding: 1.5rem;
+    }
+    .article-form {
+      .submit-button {
+        width: 100%; 
+        align-self: stretch;
+      }
+    }
+  }
+}
