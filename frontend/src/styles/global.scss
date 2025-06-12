@@ -1,0 +1,258 @@
+// frontend/src/styles/global.scss
+
+// ====================================
+// Định nghĩa biến màu dựa trên logo (Dán chính xác phần này ở đầu file)
+// ====================================
+$color-primary: #EA2C3F;       // Màu đỏ chủ đạo từ logo
+$color-secondary: #007BFF;     // Màu xanh dương
+$color-accent-yellow: #FFD700; // Màu vàng
+$color-accent-green: #28A745;  // Màu xanh lá
+$color-white: #FFFFFF;
+$color-dark: #333;
+$color-light-bg: #f4f4f4;      // Màu nền nhẹ
+$color-gray-border: #e0e0e0;   // Màu viền xám
+
+// ====================================
+// Cài đặt cơ bản cho mọi trình duyệt
+// ====================================
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: $color-light-bg;
+  color: $color-dark;
+}
+
+/* ==================================== */
+/* Header Banner Styles */
+/* ==================================== */
+.main-header {
+  background-color: $color-primary; // Sử dụng biến màu đã định nghĩa
+  // background-image: url('../../assets/images/your-banner-bg.jpg'); // Bỏ comment và thay đường dẫn nếu có ảnh nền
+  background-size: cover;
+  background-position: center;
+  color: $color-white;
+  text-align: center;
+  padding: 3rem 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+  .banner-content {
+    position: relative;
+    z-index: 2;
+    padding: 1rem;
+  }
+
+  .banner-logo {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .banner-title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .banner-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  .main-nav-links {
+    position: relative;
+    z-index: 2;
+    margin-top: 2rem;
+    padding: 0 1rem;
+  }
+
+  .main-nav-links ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    background-color: rgba($color-primary, 0.8); // Sử dụng biến màu
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    li a {
+      color: $color-white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+
+      &:hover {
+        background-color: lighten($color-primary, 10%);
+        transform: translateY(-2px);
+      }
+      svg {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+/* Media Queries cho HeaderBanner trên màn hình nhỏ */
+@media (max-width: 768px) {
+  .main-header {
+    padding: 2rem 0;
+
+    .banner-title {
+      font-size: 2rem;
+    }
+
+    .banner-subtitle {
+      font-size: 1.2rem;
+    }
+
+    .main-nav-links ul {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+}
+
+/* ==================================== */
+/* Styles for Homepage Sections (News & Events) */
+/* ==================================== */
+
+.homepage-section {
+  background-color: $color-white; // Sử dụng biến màu
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+
+  h2 {
+    color: $color-secondary; // Sử dụng biến màu
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid $color-gray-border; // Sử dụng biến màu
+    padding-bottom: 0.5rem;
+  }
+}
+
+.news-list, .event-list {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.news-item, .event-item {
+  background-color: $color-white; // Sử dụng biến màu
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid $color-gray-border; // Sử dụng biến màu
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: $color-secondary; // Sử dụng biến màu
+  }
+
+  p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: $color-dark; // Sử dụng biến màu
+    margin-bottom: 0.5rem;
+  }
+
+  .news-date, .event-date, .event-location {
+    font-size: 0.85rem;
+    color: darken($color-gray-border, 20%); // Sử dụng biến màu
+    margin-bottom: 0.5rem;
+  }
+
+  .read-more, .view-details {
+    display: inline-block;
+    margin-top: 0.8rem;
+    color: $color-secondary; // Sử dụng biến màu
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Media Queries cho item trên màn hình nhỏ */
+@media (max-width: 768px) {
+  .news-list, .event-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==================================== */
+/* Footer Styles */
+/* ==================================== */
+footer {
+  background-color: $color-accent-green; // Ví dụ màu xanh lá cho footer
+  color: $color-white;
+  padding: 2rem;
+  margin-top: 3rem;
+  text-align: center;
+
+  & > div:first-child { // Phần chia 3 cột
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: left; // Căn trái nội dung trong cột
+
+    h3 {
+      margin-top: 0;
+      color: $color-white;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+    p {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+  & > div:last-child { // Phần copyright
+    border-top: 1px solid rgba($color-white, 0.3);
+    padding-top: 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  footer > div:first-child {
+    grid-template-columns: 1fr; // Xếp dọc các cột trên mobile
+    text-align: center; // Căn giữa nội dung trên mobile
+  }
+}
